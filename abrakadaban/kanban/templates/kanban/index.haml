@@ -11,9 +11,9 @@
     %body{:ng-controller => "WorkspaceListCtrl"}
     .row
       .large-12.columns
-        %h2='{& 1+2 &}'
+        %h1='Abrakadaban'
         %ul
           #workspaces{:ng-repeat => "workspace in workspaces"}
-            %a{:href => "#workspace/{& workspace.id &}"}
+            %a.button.expand{:href => "#workspace/{& workspace.id &}"}
               {& workspace.title &}
 
