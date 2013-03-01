@@ -3,13 +3,13 @@
   %head
     %meta{:charset => "utf-8"}
     %title="Kanban"
-    %script{:type => "text/javascript", :src => "{{STATIC_URL}}js/angular.min.js"}
     %meta{:name => "viewport", :content => "width=device-width"}
-    %link{:rel => "stylesheet", :href =>"{{STATIC_URL}}css/normalize.css"}
+    %link{:rel => "stylesheet", :href => "{{STATIC_URL}}css/normalize.css"}
     %link{:rel => "stylesheet", :href => "{{STATIC_URL}}css/foundation.css"}
-    %link{:rel => "stylesheet", :href => "{% url 'kanban:js' %}"}
-  %body{:ng-controller => 'KanbanControler'}
+    %script{:type => "text/javascript", :src => "{{STATIC_URL}}js/angular.min.js"}
+    %script{:type => "text/javascript", :src => "{% url 'kanban:kanbanjs' %}"}
+  %body{:ng-controller => 'KanBan'}
     .row
       .large-12.columns
-        %h2='{[{ body }]}'
+        %h2='{& 1+2 &}'
 
