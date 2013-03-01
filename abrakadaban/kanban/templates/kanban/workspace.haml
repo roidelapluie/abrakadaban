@@ -1,6 +1,8 @@
 .row
   .large-12.columns
     %h1='Abrakadaban'
+    %h2
+      {& workspace.title &}
     %ul
       #workflows{:ng-repeat => "workflow in workspace.workflows"}
         {& workflow.title &}
