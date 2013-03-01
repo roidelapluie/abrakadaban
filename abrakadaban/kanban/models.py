@@ -2,6 +2,7 @@ from django.db import models
 from django.utils.translation import ugettext as _
 from django.contrib.auth.models import User
 
+
 class Idea(models.Model):
     title = models.CharField(_("Title"), max_length=64)
     text = models.TextField(_("Text"), blank=True)
@@ -15,14 +16,16 @@ class Idea(models.Model):
     def __unicode__(self):
         return self.title
 
+
 class Comment(models.Model):
-    idea =  models.ForeignKey(Idea)
+    idea = models.ForeignKey(Idea)
     user = models.ForeignKey(User, null=True)
     text = models.TextField(_("Text"), blank=True)
     creation_date = models.DateTimeField(_("Creation date"))
 
     def __unicode__(self):
         return self.text
+
 
 class Workspace(models.Model):
     title = models.CharField(_("Title"), max_length=64)
@@ -34,6 +37,7 @@ class Workspace(models.Model):
 
     def __unicode__(self):
         return self.title
+
 
 class Workflow(models.Model):
     order = models.IntegerField(_("Order"))
