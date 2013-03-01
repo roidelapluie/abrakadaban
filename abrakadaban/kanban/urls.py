@@ -3,5 +3,6 @@ import views
 
 urlpatterns = patterns('',
     url(r'^$', views.home, name='home'),
-    url(r'^workspace.json$', views.workspacejson, name='workspace'),
+    url(r'^kanban.js$', views.kanbanjs, name='kanbanjs'),
+    url(r'^workspace.json$', views.workspacejson, name='workspacejson'),
 )

@@ -7,9 +7,12 @@
     %link{:rel => "stylesheet", :href => "{{STATIC_URL}}css/normalize.css"}
     %link{:rel => "stylesheet", :href => "{{STATIC_URL}}css/foundation.css"}
     %script{:type => "text/javascript", :src => "{{STATIC_URL}}js/angular.min.js"}
-    %script{:type => "text/javascript", :src => "{{STATIC_URL}}js/kanban.js"}
-  %body
+    %script{:type => "text/javascript", :src => "{% url 'kanban:kanbanjs' %}"}
+    %body{:ng-controller => "WorkspaceListCtrl"}
     .row
       .large-12.columns
         %h2='{& 1+2 &}'
+        %ul
+          %li{:ng-repeat => "workspace in workspaces"}
+            {& workspace.title &}
 
