@@ -39,5 +39,8 @@ class Workflow(models.Model):
     order = models.IntegerField(_("Order"))
     title = models.CharField(_("Title"), max_length=16)
 
+    def get_title(self):
+        return self.title
+
     def __unicode__(self):
         return '%s - %s' % (str(self.order), self.title)
