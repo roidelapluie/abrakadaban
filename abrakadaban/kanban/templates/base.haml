@@ -1,0 +1,15 @@
+!!! 5
+%html{:ng-app => "KanBan"}
+  %head
+    %meta{:charset => "utf-8"}
+    %title="Kanban"
+    %meta{:name => "viewport", :content => "width=device-width"}
+    %link{:rel => "stylesheet", :href => "{{STATIC_URL}}css/normalize.css"}
+    %link{:rel => "stylesheet", :href => "{{STATIC_URL}}css/foundation.css"}
+    %script{:type => "text/javascript", :src => "{{STATIC_URL}}js/angular.min.js"}
+    %script{:type => "text/javascript", :src => "{% url 'kanban:kanbanjs' %}"}
+    -block javascript
+
+  -block body
+    %body
+      %div{:ng-view => ""}
