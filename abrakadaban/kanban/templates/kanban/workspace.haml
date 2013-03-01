@@ -8,6 +8,12 @@
     %link{:rel => "stylesheet", :href => "{{STATIC_URL}}css/foundation.css"}
     %script{:type => "text/javascript", :src => "{{STATIC_URL}}js/angular.min.js"}
     %script{:type => "text/javascript", :src => "{% url 'kanban:kanbanjs' %}"}
-    %body
-      %div{:ng-view => ""}
+    %body{:ng-controller => "WorkspaceListCtrl"}
+    .row
+      .large-12.columns
+        %h1='Abrakadaban'
+        %ul
+          #workspaces{:ng-repeat => "workspace in workspaces"}
+            %a.button.expand{:href => "#workspace/{& workspace.id &}"}
+              {& workspace.title &}
 

@@ -6,6 +6,12 @@ import json
 def home(request):
     return render(request, 'kanban/index.haml')
 
+def workspacelist(request):
+    return render(request, 'kanban/workspaces.haml')
+
+def workspaceview(request):
+    return render(request, 'kanban/workspace.haml')
+
 def kanbanjs(request):
     return render(request, 'kanban/kanban.js')
 
