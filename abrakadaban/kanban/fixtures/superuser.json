@@ -9,12 +9,12 @@
       "is_active": true, 
       "is_superuser": true, 
       "is_staff": true, 
-      "last_login": "2012-01-01 00:00:00", 
+      "last_login": "2012-01-01 00:00:00+01:00", 
       "groups": [], 
       "user_permissions": [], 
       "password": "sha1$abra$4ba63e2a8731ce879457f04309d2440da6a92f2b",
       "email": "abrakadaban@example.com", 
-      "date_joined": "2012-01-01 00:00:00"
+      "date_joined": "2012-01-01 00:00:00+01:00"
     }
   }
 ]
