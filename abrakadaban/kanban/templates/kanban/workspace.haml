@@ -1,11 +1,8 @@
--extends "base.haml"
-
--block body
-  %body{:ng-controller => "WorkspaceListCtrl"}
-    .row
-      .large-12.columns
-        %h1='Abrakadaban'
-        %ul
-          #workspaces{:ng-repeat => "workspace in workspaces"}
-            %a.button.expand{:href => "#workspace/{& workspace.id &}"}
-              {& workspace.title &}
+.row
+  .large-12.columns
+    %h1='Abrakadaban'
+    %h2
+      {& workspace.title &}
+    %ul
+      #workflows{:ng-repeat => "workflow in workspace.workflows"}
+        {& workflow.title &}

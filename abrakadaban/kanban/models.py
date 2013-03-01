@@ -10,6 +10,7 @@ class Idea(models.Model):
     members = models.ManyToManyField(User, null=True, related_name='members')
     user = models.ForeignKey(User, null=True)
     creation_date = models.DateTimeField(_("Creation date"))
+    workflow = models.ForeignKey('Workflow')
 
     def __unicode__(self):
         return self.title
@@ -37,6 +38,9 @@ class Workspace(models.Model):
 class Workflow(models.Model):
     order = models.IntegerField(_("Order"))
     title = models.CharField(_("Title"), max_length=16)
+
+    def get_title(self):
+        return self.title
 
     def __unicode__(self):
         return '%s - %s' % (str(self.order), self.title)
