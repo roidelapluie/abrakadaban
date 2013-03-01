@@ -4,10 +4,10 @@ from django.contrib.auth.models import Group
 
 
 class IdeaAdmin(admin.ModelAdmin):
-    horizontal_filter=["members", "subscribers"]
+    filter_horizontal=["members", "subscribers"]
 
 class WorkspaceAdmin(admin.ModelAdmin):
-    horizontal_filter=["members", "workflow"]
+    filter_horizontal=["members", "workflow"]
 
 admin.site.register(Workspace, WorkspaceAdmin)
 admin.site.register(Idea, IdeaAdmin)
