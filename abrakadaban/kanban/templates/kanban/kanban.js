@@ -18,5 +18,7 @@ function WorkspaceListCtrl($scope, $http){
 function WorkspaceViewCtrl($scope, $routeParams, $http){
     $http.get('{% url "kanban:workspacejson" %}/' + $routeParams.workspaceId).success(function(data) {
         $scope.workspace = data;
+        $scope.workspaceWidth = Math.floor(12/$scope.workspace.workflows.length);
+        $scope.orderProp = "order";
     })
 }

@@ -15,5 +15,5 @@ def workspacejson(request, workspace_id):
     workspace = Workspace.objects.get(id=workspace_id)
     response_data = {'title': workspace.get_title(), 'workflows': []}
     for workflow in workspace.workflow.all():
-        response_data['workflows'].append({'id': workflow.id, 'title': workflow.get_title()})
+        response_data['workflows'].append({'order': workflow.order, 'title': workflow.get_title()})
     return HttpResponse(json.dumps(response_data), mimetype="application/json")

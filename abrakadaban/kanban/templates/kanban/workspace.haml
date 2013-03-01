@@ -5,7 +5,7 @@
     %h2
       {& workspace.title &}
     .row
-      .workflow{:class => "large-{& 12/workspace.workflows.length &} columns", :ng-repeat => "workflow in workspace.workflows"}
+      .workflow{:class => "large-{& workspaceWidth &} columns", :ng-repeat => "workflow in workspace.workflows | orderBy:orderProp"}
         %h3.label
           {& workflow.title &}
 
