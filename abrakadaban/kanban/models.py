@@ -28,6 +28,9 @@ class Workspace(models.Model):
     members = models.ManyToManyField(User, null=True)
     workflow = models.ManyToManyField("Workflow")
 
+    def get_title(self):
+        return self.title
+
     def __unicode__(self):
         return self.title
 
