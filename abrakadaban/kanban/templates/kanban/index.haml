@@ -8,8 +8,8 @@
     %link{:rel => "stylesheet", :href => "{{STATIC_URL}}css/foundation.css"}
     %script{:type => "text/javascript", :src => "{{STATIC_URL}}js/angular.min.js"}
     %script{:type => "text/javascript", :src => "{% url 'kanban:kanbanjs' %}"}
-  %body{:ng-controller => 'KanBan'}
+  %body
     .row
       .large-12.columns
-        %h2='{& test &}'
+        %h2='{& 1+2 &}'
 

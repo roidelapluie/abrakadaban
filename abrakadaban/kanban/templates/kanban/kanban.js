@@ -1,6 +1,8 @@
-angular.module('KanBan', []).
+var KanBanModule = angular.module('KanBan', []).
     config(function($interpolateProvider) {
         $interpolateProvider.startSymbol('{&');
         $interpolateProvider.endSymbol('&}');
     }
-).value('test', 123);
+);
+KanBanModule.value('test', '123');
+
