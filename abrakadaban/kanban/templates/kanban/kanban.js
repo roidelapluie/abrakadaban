@@ -3,4 +3,4 @@ angular.module('KanBan', []).
         $interpolateProvider.startSymbol('{&');
         $interpolateProvider.endSymbol('&}');
     }
-);
+).value('test', 123);
