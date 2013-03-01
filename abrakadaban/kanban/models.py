@@ -10,6 +10,7 @@ class Idea(models.Model):
     members = models.ManyToManyField(User, null=True, related_name='members')
     user = models.ForeignKey(User, null=True)
     creation_date = models.DateTimeField(_("Creation date"))
+    workflow = models.ForeignKey('Workflow')
 
     def __unicode__(self):
         return self.title
