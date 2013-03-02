@@ -17,5 +17,10 @@ angular.module('KanbanServices', ['ngResource']).
             login: {method:'POST', isArray:true},
             logout: {method:'POST', isArray:true}
         });
+}).
+    factory('Idea', function($resource){
+        return $resource(KanbanUrls['idea_view'] + '/:workspaceId', {}, {
+            query: {method:'GET', params:{workspaceId:'all'}, isArray:true},
+        });
 });
 

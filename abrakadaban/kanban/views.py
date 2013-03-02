@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from models import Workspace, Workflow
+from models import Workspace, Workflow, Idea
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
@@ -7,6 +7,12 @@ from serializers import IdeaSerializer, WorkspaceSerializer, WorkflowSerializer,
 from django.contrib.auth.models import User
 import json
 from django.contrib.auth import authenticate, login, logout
+
+def check_access(workspace_id, user):
+    if user in Workspace.objects.get(id=workspace_id).members.all():
+        return True
+    else:
+        return False
 
 class JSONResponse(HttpResponse):
     """
@@ -41,16 +47,31 @@ def workspace_list(request):
     return model_list(request, objects, WorkspaceSerializer)
 
 def workspace_view(request, workspace_id):
-    objects = Workspace.objects.filter(id=workspace_id)
+    if check_access(workspace_id, request.user):
+        objects = Workspace.objects.filter(id=workspace_id)
+    else:
+        objects = ()
     return model_list(request, objects, WorkspaceSerializer)
 
 def workflow_view(request, workspace_id):
-    objects = Workspace.objects.get(id=workspace_id).workflow.all()
+    if check_access(workspace_id, request.user):
+        objects = Workspace.objects.get(id=workspace_id).workflow.all()
+    else:
+        objects = ()
     return model_list(request, objects, WorkflowSerializer)
 
-def workflow_list(request):
-    objects = Workspace.objects.all()
+def empty_list(request):
+    objects = ()
     return model_list(request, objects, WorkflowSerializer)
+
+def idea_list(request):
+    objects = ()
+    return model_list(request, objects, IdeaSerializer)
+
+@csrf_exempt
+def idea_view(request, workspace_id):
+    objects = Idea.objects.all()
+    return model_list(request, objects, IdeaSerializer)
 
 @csrf_exempt
 def user_info(request):

@@ -39,6 +39,7 @@ function WorkspaceViewCtrl($scope, $routeParams, Workspace, Workflow){
             $scope.workspace = workspace[0];
             $scope.workspaceWidth = Math.floor(12/$scope.workspace.workflow.length);
             $scope.workflows = Workflow.query({'workspaceId': $routeParams.workspaceId});
+            $scope.ideas = Idea.query({'workspaceId': $routeParams.workspaceId});
         }
     );
     $scope.orderProp = "order";
