@@ -1,4 +1,4 @@
-var KanBanModule = angular.module('KanBan', []).
+var KanBanModule = angular.module('KanBan', ['KanbanServices']).
     config(function($interpolateProvider) {
         $interpolateProvider.startSymbol('{&');
         $interpolateProvider.endSymbol('&}');

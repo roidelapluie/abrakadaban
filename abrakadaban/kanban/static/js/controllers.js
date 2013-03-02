@@ -1,13 +1,14 @@
-function WorkspaceListCtrl($scope, $http){
-    $http.get(KanbanUrls['workspace_list']).success(function(data) {
-        $scope.workspaces = data;
-    })
+function WorkspaceListCtrl($scope, Workspace){
+    $scope.workspaces = Workspace.query();
 }
 
-function WorkspaceViewCtrl($scope, $routeParams, $http){
-    $http.get(KanbanUrls['workspace_list'] + '/' + $routeParams.workspaceId).success(function(data) {
-        $scope.workspace = data[0];
-        $scope.workspaceWidth = Math.floor(12/$scope.workspace.workflows.length);
-        $scope.orderProp = "order";
-    })
+function WorkspaceViewCtrl($scope, $routeParams, Workspace){
+    var workspace = Workspace.query({'workspaceId': $routeParams.workspaceId},
+        function(){
+            $scope.workspace = workspace[0];
+            $scope.workspaceWidth = Math.floor(12/$scope.workspace.workflow.length);
+        }
+    );
+
+    $scope.orderProp = "order";
 }
