@@ -8,6 +8,10 @@ def django(args):
     return local('%s/bin/python %s/abrakadaban/manage.py %s' % (PATH, PATH, args))
 
 @task
+def shell():
+    django('shell')
+
+@task
 def runserver():
     django('runserver')
 
