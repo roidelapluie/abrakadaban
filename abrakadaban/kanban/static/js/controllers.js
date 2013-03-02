@@ -33,7 +33,7 @@ function UserCtrl($scope, $location, User){
     };
 }
 
-function WorkspaceViewCtrl($scope, $routeParams, Workspace, Workflow){
+function WorkspaceViewCtrl($scope, $routeParams, Workspace, Workflow, Idea){
     var workspace = Workspace.query({'workspaceId': $routeParams.workspaceId},
         function(){
             $scope.workspace = workspace[0];
