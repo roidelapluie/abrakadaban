@@ -5,9 +5,9 @@
     %h2
       {& workspace.title &}
     .row
-      .workflow{:class => "large-{& workspaceWidth &} columns", :ng-repeat => "workflow in workspace.workflows"}
+      .workflow{:class => "large-{& workspaceWidth &} columns", :ng-repeat => "workflow in workflows|orderBy:orderProp"}
         %h3.label
-          {& workflow &}
+          {& workflow.title &}
           %a.small.button
             +
         .panel{:ng-repeat => "idea in workflow.ideas | orderBy:orderProp"}
