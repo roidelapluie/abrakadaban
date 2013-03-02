@@ -5,6 +5,8 @@ from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
 from serializers import IdeaSerializer, WorkspaceSerializer, WorkflowSerializer, UserSerializer
 from django.contrib.auth.models import User
+import json
+from django.contrib.auth import authenticate, login, logout
 
 class JSONResponse(HttpResponse):
     """
@@ -14,6 +16,7 @@ class JSONResponse(HttpResponse):
         content = JSONRenderer().render(data)
         kwargs['content_type'] = 'application/json'
         super(JSONResponse, self).__init__(content, **kwargs)
+
 
 @csrf_exempt
 def model_list(request, objects, serializerClass):
@@ -46,9 +49,33 @@ def workflow_list(request):
     objects = Workspace.objects.all()
     return model_list(request, objects, WorkflowSerializer)
 
+@csrf_exempt
 def user_info(request):
-    if request.user:
-        objects = (request.user,)
-    else:
-        objects = ()
-    return model_list(request, objects, UserSerializer)
+    if request.method == 'GET':
+        if request.user:
+            objects = (request.user,)
+        else:
+            objects = ()
+        return model_list(request, objects, UserSerializer)
+    elif request.method == 'POST':
+        POST=json.loads(request.body)
+        if POST['action'] == 'login':
+            try:
+                username = POST['username']
+                password = POST['password']
+            except:
+                return JSONResponse({}, status=403)
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                if user.is_active:
+                    login(request, user)
+                    serializer = UserSerializer((user,), many=True)
+                    return JSONResponse(serializer.data)
+                else:
+                    return JSONResponse({}, status=403)
+            else:
+                return JSONResponse({}, status=403)
+        else:
+            logout(request)
+            return JSONResponse({})
+

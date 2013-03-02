@@ -14,16 +14,24 @@
     %script{:type => "text/javascript", :src => "{{STATIC_URL}}js/filters.js"}
     %script{:type => "text/javascript", :src => "{{STATIC_URL}}js/services.js"}
   %body
-    .top-bar.row
-      .large-12.columns
-        %section.top-bar-section
-          %ul.left
+    .top-bar.row.contain-to-grid
+      %section.top-bar-section
+        %ul.left
+          %li
+            %a{:href => "#/"}="Home"
+        .right{:ng-controller => "UserCtrl"}
+          %form{:ng-submit => "login()", :ng-hide => "user.username"}
+            %ul
+              %li
+                %input.large-11.inline{:type => "text", :ng-model => "username", :placeholder => "Username", :ng-style => "errorStyle"}
+                {{error}}
+              %li
+                %input.large-11.inline{:type => "password", :ng-model => "password", :ng-style => "errorStyle"}
+                %input{:type => "submit", :style => "display:none;"}
+          %ul{:ng-show => "user.username"}
             %li
-              %a{:href => "#/"}="Home"
-          %ul.right{:ng-controller => "UserCtrl"}
-            %li{:ng-hide => "user.username"}
-              %a="Login"
-            %li{:ng-show => "user.username"}
-              %a
-                {& user.username &}
+              %a{:ng-click => "logout()"}
+                Logout ({& user.username &})
     %div{:ng-view => ""}
+    %div#logindropdown.f-dropdown.content.custom{:data-dropdown-content => "true"}
+      Test

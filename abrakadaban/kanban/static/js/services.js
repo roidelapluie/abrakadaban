@@ -13,7 +13,9 @@ angular.module('KanbanServices', ['ngResource']).
 }).
     factory('User', function($resource){
         return $resource(KanbanUrls['user_info'], {}, {
-            query: {method:'GET', isArray:true}
+            query: {method:'GET', isArray:true},
+            login: {method:'POST', isArray:true},
+            logout: {method:'POST', isArray:true}
         });
 });
 
