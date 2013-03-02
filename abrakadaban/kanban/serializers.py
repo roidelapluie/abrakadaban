@@ -1,9 +1,5 @@
 from rest_framework import serializers
 from models import Idea, Workflow, Workspace, Comment
-
-
-from django.db import models
-from django.utils.translation import ugettext as _
 from django.contrib.auth.models import User
 
 
@@ -23,4 +19,8 @@ class IdeaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Idea
 
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('username',)
 
