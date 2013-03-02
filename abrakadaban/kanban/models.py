@@ -7,8 +7,8 @@ class Idea(models.Model):
     title = models.CharField(_("Title"), max_length=64)
     text = models.TextField(_("Text"), blank=True)
     workspace = models.ForeignKey("Workspace")
-    subscribers = models.ManyToManyField(User, null=True, related_name='subscribers')
-    members = models.ManyToManyField(User, null=True, related_name='members')
+    subscribers = models.ManyToManyField(User, blank=True, null=True, related_name='subscribers')
+    members = models.ManyToManyField(User, blank=True, null=True, related_name='members')
     user = models.ForeignKey(User, null=True)
     creation_date = models.DateTimeField(_("Creation date"))
     workflow = models.ForeignKey('Workflow')
@@ -29,7 +29,7 @@ class Comment(models.Model):
 
 class Workspace(models.Model):
     title = models.CharField(_("Title"), max_length=64)
-    members = models.ManyToManyField(User, null=True)
+    members = models.ManyToManyField(User, blank=True, null=True)
     workflow = models.ManyToManyField("Workflow")
 
     def get_title(self):
