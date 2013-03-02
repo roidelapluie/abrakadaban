@@ -70,7 +70,10 @@ def idea_list(request):
 
 @csrf_exempt
 def idea_view(request, workspace_id):
-    objects = Idea.objects.all()
+    if check_access(workspace_id, request.user):
+        objects = Workspace.objects.get(id=workspace_id).idea_set.all()
+    else:
+        objects = ()
     return model_list(request, objects, IdeaSerializer)
 
 @csrf_exempt
