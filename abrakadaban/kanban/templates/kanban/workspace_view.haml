@@ -10,9 +10,16 @@
           {& workflow.title &}
         .panel{:ng-repeat => "idea in ideas|workflow:workflow.id"}
           {& idea.title &}
-          .link-left{:ng-hide => "$parent.$first" }
-            %a
-              Move left
-          .link-right{:ng-hide => "$parent.$last" }
-            %a
-              Move right
+          %ul.button-group
+            %li{:ng-hide => "$parent.$first" }
+              %a.button.tiny{:ng-click => "moveLeft(idea)"}
+                Left
+            %li{:ng-hide => "$last" }
+              %a.button.tiny{:ng-click => "moveBottom(idea)"}
+                Down
+            %li{:ng-hide => "$first" }
+              %a.button.tiny{:ng-click => "moveUp(idea)"}
+                Up
+            %li{:ng-hide => "$parent.$last" }
+              %a.button.tiny{:ng-click => "moveRight(idea)"}
+                Right
