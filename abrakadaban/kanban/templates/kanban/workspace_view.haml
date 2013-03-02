@@ -10,4 +10,9 @@
           {& workflow.title &}
         .panel{:ng-repeat => "idea in ideas|workflow:workflow.id"}
           {& idea.title &}
-
+          .link-left{:ng-hide => "$parent.$first" }
+            %a
+              Move left
+          .link-right{:ng-hide => "$parent.$last" }
+            %a
+              Move right
