@@ -34,7 +34,10 @@ def model_list(request, objects, serializerClass):
             return JSONResponse(serializer.errors, status=400)
 
 def workspace_list(request):
-    objects = Workspace.objects.all()
+    if request.user.is_authenticated():
+        objects = User.workspace_set.objects.all()
+    else:
+        objects = ()
     return model_list(request, objects, WorkspaceSerializer)
 
 def workspace_view(request, workspace_id):
