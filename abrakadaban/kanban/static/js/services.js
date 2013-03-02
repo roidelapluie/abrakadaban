@@ -10,5 +10,10 @@ angular.module('KanbanServices', ['ngResource']).
             query: {method:'GET', params:{workspaceId:'all'}, isArray:true},
               get: {method:'GET', params:{workspaceId:'all'}, isArray:true}
         });
+}).
+    factory('User', function($resource){
+        return $resource(KanbanUrls['user_info'], {}, {
+            query: {method:'GET', isArray:true}
+        });
 });
 

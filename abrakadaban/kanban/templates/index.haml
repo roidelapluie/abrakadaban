@@ -14,4 +14,16 @@
     %script{:type => "text/javascript", :src => "{{STATIC_URL}}js/filters.js"}
     %script{:type => "text/javascript", :src => "{{STATIC_URL}}js/services.js"}
   %body
+    .top-bar.row
+      .large-12.columns
+        %section.top-bar-section
+          %ul.left
+            %li
+              %a{:href => "#/"}="Home"
+          %ul.right{:ng-controller => "UserCtrl"}
+            %li{:ng-hide => "user.username"}
+              %a="Login"
+            %li{:ng-show => "user.username"}
+              %a
+                {& user.username &}
     %div{:ng-view => ""}
