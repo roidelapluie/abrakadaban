@@ -8,6 +8,6 @@
       .workflow{:class => "large-{& workspaceWidth &} columns", :ng-repeat => "workflow in workflows|orderBy:orderProp"}
         .alert-box
           {& workflow.title &}
-        .panel{:ng-repeat => "idea in ideas"}
+        .panel{:ng-repeat => "idea in ideas|workflow:workflow.id"}
           {& idea.title &}
 
