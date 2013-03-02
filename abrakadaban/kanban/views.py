@@ -3,7 +3,8 @@ from models import Workspace, Workflow
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
-from serializers import IdeaSerializer, WorkspaceSerializer, WorkflowSerializer
+from serializers import IdeaSerializer, WorkspaceSerializer, WorkflowSerializer, UserSerializer
+from django.contrib.auth.models import User
 
 class JSONResponse(HttpResponse):
     """
@@ -44,3 +45,10 @@ def workflow_view(request, workspace_id):
 def workflow_list(request):
     objects = Workspace.objects.all()
     return model_list(request, objects, WorkflowSerializer)
+
+def user_info(request):
+    if request.user:
+        objects = (request.user,)
+    else:
+        objects = ()
+    return model_list(request, objects, UserSerializer)
