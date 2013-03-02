@@ -15,12 +15,8 @@ class JSONResponse(HttpResponse):
         super(JSONResponse, self).__init__(content, **kwargs)
 
 @csrf_exempt
-def model_list(request, model, serializerClass, model_id=None):
+def model_list(request, objects, serializerClass):
     if request.method == 'GET':
-        if model_id:
-            objects = model.objects.filter(id=model_id)
-        else:
-            objects = model.objects.all()
         serializer = serializerClass(objects, many=True)
         return JSONResponse(serializer.data)
 
@@ -34,13 +30,17 @@ def model_list(request, model, serializerClass, model_id=None):
             return JSONResponse(serializer.errors, status=400)
 
 def workspace_list(request):
-    return model_list(request, Workspace, WorkspaceSerializer)
+    objects = Workspace.objects.all()
+    return model_list(request, objects, WorkspaceSerializer)
 
 def workspace_view(request, workspace_id):
-    return model_list(request, Workspace, WorkspaceSerializer, workspace_id)
+    objects = Workspace.objects.filter(id=workspace_id)
+    return model_list(request, objects, WorkspaceSerializer)
 
-def workflow_view(request, workflow_id):
-    return model_list(request, Workflow, WorkflowSerializer, workflow_id)
+def workflow_view(request, workspace_id):
+    objects = Workspace.objects.get(id=workspace_id).workflow.all()
+    return model_list(request, objects, WorkflowSerializer)
 
 def workflow_list(request):
-    return model_list(request, Workflow, WorkflowSerializer)
+    objects = Workspace.objects.all()
+    return model_list(request, objects, WorkflowSerializer)
