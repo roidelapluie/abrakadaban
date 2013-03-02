@@ -1,9 +1,9 @@
 from django.http import HttpResponse
-from models import Workspace
+from models import Workspace, Workflow
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
-from serializers import IdeaSerializer, WorkspaceSerializer
+from serializers import IdeaSerializer, WorkspaceSerializer, WorkflowSerializer
 
 class JSONResponse(HttpResponse):
     """
@@ -38,3 +38,9 @@ def workspace_list(request):
 
 def workspace_view(request, workspace_id):
     return model_list(request, Workspace, WorkspaceSerializer, workspace_id)
+
+def workflow_view(request, workflow_id):
+    return model_list(request, Workflow, WorkflowSerializer, workflow_id)
+
+def workflow_list(request):
+    return model_list(request, Workflow, WorkflowSerializer)
