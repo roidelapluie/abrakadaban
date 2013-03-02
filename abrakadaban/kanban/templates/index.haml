@@ -8,6 +8,7 @@
     %link{:rel => "stylesheet", :href => "{{STATIC_URL}}css/foundation.css"}
     %script{:type => "text/javascript", :src => "{{STATIC_URL}}js/angular.min.js"}
     %script{:type => "text/javascript", :src => "{% url 'kanban:kanbanjs' %}"}
+    %script{:type => "text/javascript", :src => "{{STATIC_URL}}kanban.js"}
     -block javascript
 
   -block body

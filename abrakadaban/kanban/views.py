@@ -1,19 +1,40 @@
 from django.http import HttpResponse
 from models import Workspace
-import json
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.renderers import JSONRenderer
+from rest_framework.parsers import JSONParser
+from serializers import IdeaSerializer, WorkspaceSerializer
 
+class JSONResponse(HttpResponse):
+    """
+    An HttpResponse that renders it's content into JSON.
+    """
+    def __init__(self, data, **kwargs):
+        content = JSONRenderer().render(data)
+        kwargs['content_type'] = 'application/json'
+        super(JSONResponse, self).__init__(content, **kwargs)
 
-def workspacesjson(request):
-    workspaces = Workspace.objects.all()
-    response_data = []
-    for workspace in workspaces:
-        response_data.append({'id': workspace.id, 'title': workspace.get_title()})
-    return HttpResponse(json.dumps(response_data), mimetype="application/json")
+@csrf_exempt
+def model_list(request, model, serializerClass, model_id=None):
+    if request.method == 'GET':
+        if model_id:
+            objects = model.objects.filter(id=model_id)
+        else:
+            objects = model.objects.all()
+        serializer = serializerClass(objects, many=True)
+        return JSONResponse(serializer.data)
 
+    elif request.method == 'POST':
+        data = JSONParser().parse(request)
+        serializer = serializerClass(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JSONResponse(serializer.data, status=201)
+        else:
+            return JSONResponse(serializer.errors, status=400)
 
-def workspacejson(request, workspace_id):
-    workspace = Workspace.objects.get(id=workspace_id)
-    response_data = {'title': workspace.get_title(), 'workflows': []}
-    for workflow in workspace.workflow.all():
-        response_data['workflows'].append({'order': workflow.order, 'title': workflow.get_title()})
-    return HttpResponse(json.dumps(response_data), mimetype="application/json")
+def workspace_list(request):
+    return model_list(request, Workspace, WorkspaceSerializer)
+
+def workspace_view(request, workspace_id):
+    return model_list(request, Workspace, WorkspaceSerializer, workspace_id)
