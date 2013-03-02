@@ -35,7 +35,7 @@ def model_list(request, objects, serializerClass):
 
 def workspace_list(request):
     if request.user.is_authenticated():
-        objects = User.workspace_set.objects.all()
+        objects = request.user.workspace_set.all()
     else:
         objects = ()
     return model_list(request, objects, WorkspaceSerializer)

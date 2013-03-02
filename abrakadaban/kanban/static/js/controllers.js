@@ -2,7 +2,7 @@ function WorkspaceListCtrl($scope, Workspace){
     $scope.workspaces = Workspace.query();
 }
 
-function UserCtrl($scope, User){
+function UserCtrl($scope, $location, User){
     user = User.query(
         function(){
             $scope.user = user[0];
@@ -15,8 +15,10 @@ function UserCtrl($scope, User){
                 $scope.user = user[0];
                 $scope.password = "";
                 $scope.errorStyle = {};
+                $location.path("/");
             },
             function(){
+                $scope.password = "";
                 $scope.errorStyle = {border:'1px solid red', color: 'red'};
             }
         );
@@ -25,6 +27,7 @@ function UserCtrl($scope, User){
         user = User.logout(postData={'action':'logout'},
             function(){
                 $scope.user = null;
+                $location.path("/");
             }
         );
     };
