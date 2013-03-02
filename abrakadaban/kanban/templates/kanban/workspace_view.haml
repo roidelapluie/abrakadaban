@@ -1,15 +1,14 @@
 .row
   .large-12.columns
-    %h1='Abrakadaban'
     %a.button.small{:href => "#/"}="Home"
+    %h1
+      Abrakadaban
     %h2
       {& workspace.title &}
     .row
       .workflow{:class => "large-{& workspaceWidth &} columns", :ng-repeat => "workflow in workflows|orderBy:orderProp"}
-        %h3.label
+        .alert-box
           {& workflow.title &}
-          %a.small.button
-            +
         .panel{:ng-repeat => "idea in workflow.ideas | orderBy:orderProp"}
           Idea
 
