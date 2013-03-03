@@ -39,6 +39,8 @@ def model_list(request, objects, serializerClass):
 
     elif request.method == 'POST':
         data = JSONParser().parse(request)
+        print type(data)
+        print data
         serializer = serializerClass(data=data)
         if serializer.is_valid():
             serializer.save()
@@ -81,13 +83,14 @@ def idea_view(request, workspace_id):
         return model_list(request, objects, IdeaSerializer)
     elif request.method == 'POST':
         POST=json.loads(request.body)
-        try:
-            idea_id = POST['idea']
-            idea = Idea.objects.get(id=idea_id)
-        except:
-            return JSONResponse({}, status=500)
-        if not check_idea_access(workspace_id, idea_id, request.user):
-            return JSONResponse({}, status=403)
+        if POST['action'] in ('reorder', 'update'):
+            try:
+                idea_id = POST['idea']
+                idea = Idea.objects.get(id=idea_id)
+            except:
+                return JSONResponse({}, status=500)
+            if not check_idea_access(workspace_id, idea_id, request.user):
+                return JSONResponse({}, status=403)
         if POST['action'] == 'update':
             try:
                 order = POST['order']
@@ -102,6 +105,9 @@ def idea_view(request, workspace_id):
             except:
                 return JSONResponse({}, status=500)
             idea.order = order
+        else:
+            print 'foo'
+            return model_list(request, None, IdeaSerializer)
         idea.save()
         objects = Workspace.objects.get(id=workspace_id).idea_set.all()
         serializer = IdeaSerializer(objects, many=True)
