@@ -38,8 +38,7 @@ def model_list(request, objects, serializerClass):
         return JSONResponse(serializer.data)
 
     elif request.method == 'POST':
-        data = JSONParser().parse(request)
-        print type(data)
+        data = JSONParser().parse(request)['data']
         print data
         serializer = serializerClass(data=data)
         if serializer.is_valid():

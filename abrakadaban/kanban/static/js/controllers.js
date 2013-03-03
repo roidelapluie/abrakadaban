@@ -42,8 +42,8 @@ function WorkspaceViewCtrl($scope, $routeParams, Workspace, Workflow, Idea){
             $scope.ideas = Idea.query({'workspaceId': $routeParams.workspaceId});
         }
     );
-    $scope.upgradeIdeas = function(){
-        Idea.reorder({'workspaceId': $routeParams.workspaceId}, postData={'action':'upgrade', 'data': $scope.ideas})
+    $scope.upgradeIdeas = function(idea){
+        Idea.reorder({'workspaceId': $routeParams.workspaceId}, postData={'action':'upgrade', 'data': idea})
     }
     $scope.changeIdeaOrder = function(idea, order){
         Idea.reorder({'workspaceId': $routeParams.workspaceId}, postData={'action':'reorder', 'idea': idea, 'order': order})
