@@ -43,4 +43,5 @@ function WorkspaceViewCtrl($scope, $routeParams, Workspace, Workflow, Idea){
         }
     );
     $scope.orderProp = "order";
+    $scope.draginprogress = false;
 }

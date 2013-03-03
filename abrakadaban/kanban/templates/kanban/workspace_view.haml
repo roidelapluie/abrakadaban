@@ -3,23 +3,27 @@
     %h1
       Abrakadaban
     %h2
-      {& workspace.title &}
+      {& workspace.title &}({& draginprogress &})
     .row
       .workflow{:class => "large-{& workspaceWidth &} columns", :ng-repeat => "workflow in workflows|orderBy:orderProp"}
         .alert-box
           {& workflow.title &}
-        .panel{:ng-repeat => "idea in ideas|workflow:workflow.id"}
-          {& idea.title &}
-          %ul.button-group
-            %li{:ng-hide => "$parent.$first" }
-              %a.button.tiny{:ng-click => "moveLeft(idea)"}
-                Left
-            %li{:ng-hide => "$last" }
-              %a.button.tiny{:ng-click => "moveBottom(idea)"}
-                Down
-            %li{:ng-hide => "$first" }
-              %a.button.tiny{:ng-click => "moveUp(idea)"}
-                Up
-            %li{:ng-hide => "$parent.$last" }
-              %a.button.tiny{:ng-click => "moveRight(idea)"}
-                Right
+        .idea{:ng-repeat => "idea in ideas|workflow:workflow.id"}
+           {& idea.title &}{& draginprogress &}
+          .panel{:draggable => "true", :draggable-idea => ""}
+            {& idea.title &}{& draginprogress &}
+            %ul.button-group
+              %li{:ng-hide => "$parent.$first" }
+                %a.button.tiny{:ng-click => "moveLeft(idea)"}
+                  Left
+              %li{:ng-hide => "$last" }
+                %a.button.tiny{:ng-click => "moveBottom(idea)"}
+                  Down
+              %li{:ng-hide => "$first" }
+                %a.button.tiny{:ng-click => "moveUp(idea)"}
+                  Up
+              %li{:ng-hide => "$parent.$last" }
+                %a.button.tiny{:ng-click => "moveRight(idea)"}
+                  Right
+          .moveDest{:dragguable-dest => "", :ng-show => "draginprogress"}
+            Move there

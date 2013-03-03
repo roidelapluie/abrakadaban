@@ -6,6 +6,7 @@
     %meta{:name => "viewport", :content => "width=device-width"}
     %link{:rel => "stylesheet", :href => "{{STATIC_URL}}css/normalize.css"}
     %link{:rel => "stylesheet", :href => "{{STATIC_URL}}css/foundation.css"}
+    %link{:rel => "stylesheet", :href => "{{STATIC_URL}}css/custom.css"}
     %script{:type => "text/javascript", :src => "{{STATIC_URL}}js/angular.min.js"}
     %script{:type => "text/javascript", :src => "{{STATIC_URL}}js/angular-resources.min.js"}
     %script{:type => "text/javascript", :src => "{% url 'kanban:kanbanjs' %}"}
@@ -13,6 +14,7 @@
     %script{:type => "text/javascript", :src => "{{STATIC_URL}}js/controllers.js"}
     %script{:type => "text/javascript", :src => "{{STATIC_URL}}js/filters.js"}
     %script{:type => "text/javascript", :src => "{{STATIC_URL}}js/services.js"}
+    %script{:type => "text/javascript", :src => "{{STATIC_URL}}js/directives.js"}
   %body
     .top-bar.row.contain-to-grid
       %section.top-bar-section
