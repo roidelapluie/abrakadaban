@@ -29,11 +29,10 @@ directive('draggableDest', function(){
                     e.preventDefault();
                 }
                 var idea = e.dataTransfer.getData('text');
-                $scope.changeIdeaOrderAndWorkflow(idea, attr.dragWorkflow, attr.dragOrder)
-                $scope.$apply();
-                $scope.startDragAndDrop();
-                $scope.$apply()
                 this.classList.remove('activeDrag');
+                $scope.changeIdeaOrderAndWorkflow(idea, attr.dragWorkflow, attr.dragOrder)
+                $scope.stopDragAndDrop();
+                $scope.$apply();
                 return false;
             });
             elem.bind('dragover', function(e){
