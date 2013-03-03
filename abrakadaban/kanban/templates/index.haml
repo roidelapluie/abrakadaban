@@ -29,7 +29,7 @@
                 {{error}}
               %li
                 %input.large-11.inline{:type => "password", :ng-model => "password", :ng-style => "errorStyle"}
-                %input{:type => "submit", :style => "display:none;"}
+                %input{:type => "submit", :style => "visibility:hidden;"}
           %ul{:ng-show => "user.username"}
             %li
               %a{:ng-click => "logout()"}
