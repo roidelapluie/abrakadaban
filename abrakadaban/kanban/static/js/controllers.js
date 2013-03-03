@@ -42,16 +42,17 @@ function WorkspaceViewCtrl($scope, $routeParams, Workspace, Workflow, Idea){
             $scope.ideas = Idea.query({'workspaceId': $routeParams.workspaceId});
         }
     );
+    $scope.changeIdeaOrder = function(idea, order){
+        Idea.reorder({'workspaceId': $routeParams.workspaceId}, postData={'action':'reorder', 'idea': idea, 'order': order})
+    }
     $scope.changeIdeaOrderAndWorkflow = function(idea, workflow, order){
         $scope.ideas = Idea.update({'workspaceId': $routeParams.workspaceId}, postData={'action':'update', 'idea': idea, 'workflow': workflow, 'order': order})
     }
     $scope.stopDragAndDrop = function(){
         $scope.draginprogress = false;
-        console.log('stop');
     };
     $scope.startDragAndDrop = function(){
         $scope.draginprogress = true;
-        console.log('start');
     };
     $scope.orderProp = "order";
     $scope.draginprogress = false;

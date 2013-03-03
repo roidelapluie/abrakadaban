@@ -22,6 +22,7 @@ angular.module('KanbanServices', ['ngResource']).
         return $resource(KanbanUrls['idea_list'] + '/:workspaceId', {}, {
             query: {method:'GET', params:{workspaceId:'all'}, isArray:true},
             update: {method:'POST', params:{workspaceId:'all'}, isArray:true},
+            reorder: {method:'POST', params:{workspaceId:'all'}, isArray:true},
         });
 });
 
