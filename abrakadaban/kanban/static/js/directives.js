@@ -10,7 +10,7 @@ directive('draggableIdea', function(){
             });
             elem.bind('dragstart', function(e){
                 e.dataTransfer.effectAllowed = 'move';
-                e.dataTransfer.setData('text', $scope.idea);
+                e.dataTransfer.setData('text', $scope.idea.id);
                 $scope.startDragAndDrop();
                 $scope.$apply()
             });
@@ -21,8 +21,6 @@ directive('draggableDest', function(){
     return {
         restrict: 'A', //attribute only
         link: function($scope, elem, attr) {
-            console.log(attr.dragOrder);
-            console.log(attr.dragWorkflow);
             elem.bind('drop', function(e){
                 if (e.stopPropagation) {
                     e.stopPropagation();
@@ -30,10 +28,9 @@ directive('draggableDest', function(){
                 if (e.preventDefault) {
                     e.preventDefault();
                 }
-                $scope.
+                var idea = e.dataTransfer.getData('text');
+                $scope.changeIdeaOrderAndWorkflow(idea, attr.dragWorkflow, attr.dragOrder)
                 $scope.$apply();
-                console.log('workflow:' + attr.dragWorkflow);
-                console.log('order:' + attr.dragOrder);
                 return false;
             });
             elem.bind('dragover', function(e){
