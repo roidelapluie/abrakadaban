@@ -30,9 +30,8 @@ directive('draggableDest', function(){
                 if (e.preventDefault) {
                     e.preventDefault();
                 }
-                console.log('idea:' + e.dataTransfer.getData('text'));
-                e.dataTransfer.getData('text').order=attr.dragOrder;
-                $scope.$update();
+                $scope.
+                $scope.$apply();
                 console.log('workflow:' + attr.dragWorkflow);
                 console.log('order:' + attr.dragOrder);
                 return false;

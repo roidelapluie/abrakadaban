@@ -14,6 +14,14 @@ def check_access(workspace_id, user):
     else:
         return False
 
+def check_idea_access(workspace_id, idea_id, user):
+    print 'd'
+    workspace = Workspace.objects.get(id=workspace_id)
+    if user in workspace.members.all():
+        if Idea.objects.get(id=idea_id).workspace == workspace:
+            return True
+    return False
+
 class JSONResponse(HttpResponse):
     """
     An HttpResponse that renders it's content into JSON.
@@ -64,16 +72,28 @@ def empty_list(request):
     objects = ()
     return model_list(request, objects, WorkflowSerializer)
 
-def idea_list(request):
-    objects = ()
-    return model_list(request, objects, IdeaSerializer)
-
 @csrf_exempt
 def idea_view(request, workspace_id):
-    if check_access(workspace_id, request.user):
+    if request.method == 'GET':
+        if check_access(workspace_id, request.user):
+            objects = Workspace.objects.get(id=workspace_id).idea_set.all()
+        else:
+            objects = ()
+    elif request.method == 'POST':
+        POST=json.loads(request.body)
+        try:
+            order = POST['order']
+            workflow_id = POST['workflow']
+            idea_id = POST['idea']
+        except:
+            return JSONResponse({}, status=500)
+        if not check_idea_access(workspace_id, idea_id, request.user):
+            return JSONResponse({}, status=404)
+        idea = Idea.objects.get(id=idea_id)
+        idea.workflow = Workflow.objects.get(id=workflow_id)
+        idea.order = order
+        idea.save()
         objects = Workspace.objects.get(id=workspace_id).idea_set.all()
-    else:
-        objects = ()
     return model_list(request, objects, IdeaSerializer)
 
 @csrf_exempt

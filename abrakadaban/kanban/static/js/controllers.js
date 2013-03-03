@@ -42,6 +42,9 @@ function WorkspaceViewCtrl($scope, $routeParams, Workspace, Workflow, Idea){
             $scope.ideas = Idea.query({'workspaceId': $routeParams.workspaceId});
         }
     );
+    $scope.changeIdeaOrderAndWorkflow = function(idea, workflow, order){
+        Idea.update({'workspaceId': $routeParams.workspaceId}, postData={'action':'update', 'idea': idea, 'workflow': workflow, 'order': order})
+    }
     $scope.stopDragAndDrop = function(){
         $scope.draginprogress = false;
         console.log('stop');

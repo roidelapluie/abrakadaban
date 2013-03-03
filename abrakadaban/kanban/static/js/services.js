@@ -21,6 +21,7 @@ angular.module('KanbanServices', ['ngResource']).
     factory('Idea', function($resource){
         return $resource(KanbanUrls['idea_list'] + '/:workspaceId', {}, {
             query: {method:'GET', params:{workspaceId:'all'}, isArray:true},
+            update: {method:'POST', params:{workspaceId:'all'}, isArray:true},
         });
 });
 
