@@ -3,15 +3,14 @@
     %h1
       Abrakadaban
     %h2
-      {& workspace.title &}({& draginprogress &})
+      {& workspace.title &}
     .row
       .workflow{:class => "large-{& workspaceWidth &} columns", :ng-repeat => "workflow in workflows|orderBy:orderProp"}
         .alert-box
           {& workflow.title &}
         .idea{:ng-repeat => "idea in ideas|workflow:workflow.id"}
-           {& idea.title &}{& draginprogress &}
           .panel{:draggable => "true", :draggable-idea => ""}
-            {& idea.title &}{& draginprogress &}
+            {& idea.title &}
             %ul.button-group
               %li{:ng-hide => "$parent.$first" }
                 %a.button.tiny{:ng-click => "moveLeft(idea)"}
@@ -26,4 +25,3 @@
                 %a.button.tiny{:ng-click => "moveRight(idea)"}
                   Right
           .moveDest{:dragguable-dest => "", :ng-show => "draginprogress"}
-            Move there

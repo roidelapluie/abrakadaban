@@ -1,3 +1,8 @@
 [draggable] {
     user-select: none;
 }
+
+.moveDest{
+    height:1em;
+    border: 2px dashed black;
+}

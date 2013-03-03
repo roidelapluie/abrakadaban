@@ -42,6 +42,14 @@ function WorkspaceViewCtrl($scope, $routeParams, Workspace, Workflow, Idea){
             $scope.ideas = Idea.query({'workspaceId': $routeParams.workspaceId});
         }
     );
+    $scope.stopDragAndDrop = function(){
+        $scope.draginprogress = false;
+        console.log('stop');
+    };
+    $scope.startDragAndDrop = function(){
+        $scope.draginprogress = true;
+        console.log('start');
+    };
     $scope.orderProp = "order";
     $scope.draginprogress = false;
 }

@@ -11,6 +11,7 @@ class Idea(models.Model):
     members = models.ManyToManyField(User, blank=True, null=True, related_name='members')
     user = models.ForeignKey(User, null=True)
     creation_date = models.DateTimeField(_("Creation date"))
+    order = models.IntegerField(_("Order"))
     workflow = models.ForeignKey('Workflow')
 
     def __unicode__(self):
