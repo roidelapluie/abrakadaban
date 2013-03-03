@@ -8,20 +8,8 @@
       .workflow{:class => "large-{& workspaceWidth &} columns", :ng-repeat => "workflow in workflows|orderBy:orderProp"}
         .alert-box
           {& workflow.title &}
-        .idea{:ng-repeat => "idea in ideas|workflow:workflow.id"}
+        .moveDest{:draggable-dest => "", :drag-order => "0", :drag-workflow => "{& workflow.id &}", :ng-show => "draginprogress"}
+        .idea{:ng-repeat => "idea in ideas|workflow:workflow.id|orderBy:orderProp|hardenOrder"}
           .panel{:draggable => "true", :draggable-idea => ""}
-            {& idea.title &}
-            %ul.button-group
-              %li{:ng-hide => "$parent.$first" }
-                %a.button.tiny{:ng-click => "moveLeft(idea)"}
-                  Left
-              %li{:ng-hide => "$last" }
-                %a.button.tiny{:ng-click => "moveBottom(idea)"}
-                  Down
-              %li{:ng-hide => "$first" }
-                %a.button.tiny{:ng-click => "moveUp(idea)"}
-                  Up
-              %li{:ng-hide => "$parent.$last" }
-                %a.button.tiny{:ng-click => "moveRight(idea)"}
-                  Right
-          .moveDest{:dragguable-dest => "", :ng-show => "draginprogress"}
+            {& idea.title &}{& idea.order &}
+          .moveDest{:draggable-dest => "", :drag-order => "{& idea.order+1 &}", :drag-workflow => "{& workflow.id &}", :ng-show => "draginprogress"}

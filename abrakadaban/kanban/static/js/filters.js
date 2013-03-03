@@ -9,5 +9,17 @@ angular.module('KanbanFilters', []).
             });
             return CorresponingIdea;
         }
+}).
+    filter('hardenOrder', function(){
+        return function(items){
+            var CorresponingIdea=[];
+            var i=2;
+            angular.forEach(items, function(item){
+                item.order = i;
+                i+=2;
+                CorresponingIdea.push(item);
+            });
+            return CorresponingIdea;
+        }
 });
 
