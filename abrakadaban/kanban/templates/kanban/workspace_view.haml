@@ -10,4 +10,4 @@
           {& workflow.title &}
         .idea{:ng-repeat => "idea in ideas|workflow:workflow.id|orderBy:orderProp|hardenOrder"}
           .panel{:draggable => "true", :draggable-idea => "", :draggable-dest => "", :drag-order => "{& idea.order+1 &}", :drag-workflow => "{& workflow.id &}"}
-            {& idea.title &}{& idea.order &}
+            {& idea.title &}
