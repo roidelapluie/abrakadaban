@@ -15,7 +15,6 @@ def check_access(workspace_id, user):
         return False
 
 def check_idea_access(workspace_id, idea_id, user):
-    print 'd'
     workspace = Workspace.objects.get(id=workspace_id)
     if user in workspace.members.all():
         if Idea.objects.get(id=idea_id).workspace == workspace:
@@ -45,7 +44,7 @@ def model_list(request, objects, serializerClass):
             serializer.save()
             return JSONResponse(serializer.data, status=201)
         else:
-            return JSONResponse(serializer.errors, status=400)
+            return JSONResponse(serializer.errors, status=401)
 
 def workspace_list(request):
     if request.user.is_authenticated():
@@ -79,6 +78,7 @@ def idea_view(request, workspace_id):
             objects = Workspace.objects.get(id=workspace_id).idea_set.all()
         else:
             objects = ()
+        return model_list(request, objects, IdeaSerializer)
     elif request.method == 'POST':
         POST=json.loads(request.body)
         try:
@@ -94,7 +94,8 @@ def idea_view(request, workspace_id):
         idea.order = order
         idea.save()
         objects = Workspace.objects.get(id=workspace_id).idea_set.all()
-    return model_list(request, objects, IdeaSerializer)
+        serializer = IdeaSerializer(objects, many=True)
+        return JSONResponse(serializer.data)
 
 @csrf_exempt
 def user_info(request):

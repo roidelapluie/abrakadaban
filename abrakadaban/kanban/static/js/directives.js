@@ -31,6 +31,9 @@ directive('draggableDest', function(){
                 var idea = e.dataTransfer.getData('text');
                 $scope.changeIdeaOrderAndWorkflow(idea, attr.dragWorkflow, attr.dragOrder)
                 $scope.$apply();
+                $scope.startDragAndDrop();
+                $scope.$apply()
+                this.classList.remove('activeDrag');
                 return false;
             });
             elem.bind('dragover', function(e){

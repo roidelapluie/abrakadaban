@@ -9,7 +9,7 @@
         .alert-box
           {& workflow.title &}
         .moveDest{:draggable-dest => "", :drag-order => "0", :drag-workflow => "{& workflow.id &}", :ng-show => "draginprogress"}
+          Top
         .idea{:ng-repeat => "idea in ideas|workflow:workflow.id|orderBy:orderProp|hardenOrder"}
-          .panel{:draggable => "true", :draggable-idea => ""}
+          .panel{:draggable => "true", :draggable-idea => "", :draggable-dest => "", :drag-order => "{& idea.order+1 &}", :drag-workflow => "{& workflow.id &}"}
             {& idea.title &}{& idea.order &}
-          .moveDest{:draggable-dest => "", :drag-order => "{& idea.order+1 &}", :drag-workflow => "{& workflow.id &}", :ng-show => "draginprogress"}
