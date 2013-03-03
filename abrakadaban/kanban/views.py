@@ -82,16 +82,26 @@ def idea_view(request, workspace_id):
     elif request.method == 'POST':
         POST=json.loads(request.body)
         try:
-            order = POST['order']
-            workflow_id = POST['workflow']
             idea_id = POST['idea']
+            idea = Idea.objects.get(id=idea_id)
         except:
             return JSONResponse({}, status=500)
         if not check_idea_access(workspace_id, idea_id, request.user):
-            return JSONResponse({}, status=404)
-        idea = Idea.objects.get(id=idea_id)
-        idea.workflow = Workflow.objects.get(id=workflow_id)
-        idea.order = order
+            return JSONResponse({}, status=403)
+        if POST['action'] == 'update':
+            try:
+                order = POST['order']
+                workflow_id = POST['workflow']
+            except:
+                return JSONResponse({}, status=500)
+            idea.workflow = Workflow.objects.get(id=workflow_id)
+            idea.order = order
+        elif POST['action'] == 'reorder':
+            try:
+                order = POST['order']
+            except:
+                return JSONResponse({}, status=500)
+            idea.order = order
         idea.save()
         objects = Workspace.objects.get(id=workspace_id).idea_set.all()
         serializer = IdeaSerializer(objects, many=True)
