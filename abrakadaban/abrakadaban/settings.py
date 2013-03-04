@@ -123,8 +123,11 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.admin',
     'rest_framework',
+    'tastypie',
     'kanban',
 )
+
+API_URL = "/api/1.0/"
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

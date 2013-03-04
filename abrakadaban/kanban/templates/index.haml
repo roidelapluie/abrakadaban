@@ -3,37 +3,34 @@
   %head
     %meta{:charset => "utf-8"}
     %title="Kanban"
-    %meta{:name => "viewport", :content => "width=device-width"}
-    %link{:rel => "stylesheet", :href => "{{STATIC_URL}}css/normalize.css"}
-    %link{:rel => "stylesheet", :href => "{{STATIC_URL}}css/foundation.css"}
     %link{:rel => "stylesheet", :href => "{{STATIC_URL}}css/custom.css"}
     %script{:type => "text/javascript", :src => "{{STATIC_URL}}js/angular.min.js"}
     %script{:type => "text/javascript", :src => "{{STATIC_URL}}js/angular-resources.min.js"}
     %script{:type => "text/javascript", :src => "{% url 'kanban:kanbanjs' %}"}
+    %script{:type => "text/javascript", :src => "{{STATIC_URL}}js/urls.js"}
     %script{:type => "text/javascript", :src => "{{STATIC_URL}}js/app.js"}
     %script{:type => "text/javascript", :src => "{{STATIC_URL}}js/controllers.js"}
     %script{:type => "text/javascript", :src => "{{STATIC_URL}}js/filters.js"}
     %script{:type => "text/javascript", :src => "{{STATIC_URL}}js/services.js"}
     %script{:type => "text/javascript", :src => "{{STATIC_URL}}js/directives.js"}
   %body
-    .top-bar.row.contain-to-grid
-      %section.top-bar-section
+    #navigation
         %ul.left
           %li
             %a{:href => "#/"}="Home"
-        .right{:ng-controller => "UserCtrl"}
-          %form{:ng-submit => "login()", :ng-hide => "user.username"}
-            %ul
-              %li
-                %input.large-11.inline{:type => "text", :ng-model => "username", :placeholder => "Username", :ng-style => "errorStyle"}
-                {{error}}
-              %li
-                %input.large-11.inline{:type => "password", :ng-model => "password", :ng-style => "errorStyle"}
-                %input{:type => "submit", :style => "visibility:hidden;"}
-          %ul{:ng-show => "user.username"}
-            %li
-              %a{:ng-click => "logout()"}
-                Logout ({& user.username &})
+    #userctrl{:ng-controller => "UserCtrl"}
+      %form{:ng-submit => "login()", :ng-hide => "user.username"}
+        %ul
+          %li
+            %input.large-11.inline{:type => "text", :ng-model => "username", :placeholder => "Username", :ng-style => "errorStyle"}
+            {{error}}
+          %li
+            %input.large-11.inline{:type => "password", :ng-model => "password", :ng-style => "errorStyle"}
+            %input{:type => "submit", :style => "visibility:hidden;"}
+      %ul{:ng-show => "user.username"}
+        %li
+          %a{:ng-click => "logout()"}
+            Logout ({& user.username &})
     %div{:ng-view => ""}
     %div#logindropdown.f-dropdown.content.custom{:data-dropdown-content => "true"}
       Test
