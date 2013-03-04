@@ -5,10 +5,10 @@
     %h2
       {& workspace.title &}
     .row
-      .workflow{:draggable-dest => "", :drag-order => "0", :drag-workflow => "{& workflow.id &}", :class => "large-{& workspaceWidth &} columns", :ng-repeat => "workflow in workflows|orderBy:orderProp"}
+      .workflow{:draggable-dest => "", :drag-order => "0", :drag-workflow => "{& workflow.id &}", :class => "large-{& workspaceWidth &} columns", :ng-repeat => "workflow in workspace.workflow|orderBy:orderProp"}
         .alert-box
           {& workflow.title &}
-        .idea{:ng-repeat => "idea in ideas|workflow:workflow.id|orderBy:orderProp|hardenOrder"}
+        .idea{:ng-repeat => "idea in workspace.idea|workflow:workflow.id|orderBy:orderProp|hardenOrder"}
           .panel{:draggable => "true", :draggable-idea => "", :draggable-dest => "", :drag-order => "{& idea.order+1 &}", :drag-workflow => "{& workflow.id &}"}
             {& idea.title &}
             %a.button.tiny{:ng-click => "edit=!edit"}
