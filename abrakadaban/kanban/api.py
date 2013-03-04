@@ -19,13 +19,14 @@ class WorkflowResource(ModelResource):
 class WorkspaceResource(ModelResource):
     workflow = fields.ToManyField(WorkflowResource, 'workflow', full=True)
     members = fields.ToManyField(UserResource, 'members', full=True)
+    idea = fields.ToManyField('kanban.api.IdeaResource', 'idea_set', related_name='workspace', full=True)
     class Meta:
         queryset = Workspace.objects.all()
 
 class IdeaResource(ModelResource):
     user = fields.ForeignKey(UserResource, 'user', full=True)
     subscribers = fields.ToManyField(UserResource, 'subscribers', full=True)
-    workspace = fields.ToOneField(WorkspaceResource, 'workspace', full=True)
+    workspace = fields.ToOneField(WorkspaceResource, 'workspace')
     workflow = fields.ToOneField(WorkflowResource, 'workflow', full=True)
     members = fields.ToManyField(UserResource, 'members', full=True)
     class Meta:
