@@ -15,5 +15,5 @@
               Toggle edit
             .edit{:ng-show => "edit"}
               %input{:ng-model => "idea.title"}
-              %a.button.tiny{:ng-click => "upgradeIdeas(idea)"}
+              %a.button.tiny{:ng-click => "upgradeIdeas(idea); edit=false"}
                 Update
