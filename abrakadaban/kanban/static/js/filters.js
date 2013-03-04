@@ -3,7 +3,7 @@ angular.module('KanbanFilters', []).
         return function(items, workflow_id){
             var CorresponingIdea=[];
             angular.forEach(items, function(item){
-                if (item.workflow == workflow_id){
+                if (item.workflow.id == workflow_id){
                     CorresponingIdea.push(item);
                 }
             });

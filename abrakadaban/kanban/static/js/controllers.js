@@ -39,14 +39,12 @@ function UserCtrl($scope, $location, User){
 }
 
 function WorkspaceViewCtrl($scope, $routeParams, Workspace, Workflow, Idea){
-    //var workspace = Workspace.query({'workspaceId': $routeParams.workspaceId},
-    //    function(){
-    //        $scope.workspace = workspace[0];
-    //        $scope.workspaceWidth = Math.floor(12/$scope.workspace.workflow.length);
-    //        $scope.workflows = Workflow.query({'workspaceId': $routeParams.workspaceId});
-    //        $scope.ideas = Idea.query({'workspaceId': $routeParams.workspaceId});
-    //    }
-    //);
+    var workspace = Workspace.query({'workspaceId': $routeParams.workspaceId},
+        function(){
+            $scope.workspace = workspace;
+            $scope.workspaceWidth = Math.floor(12/$scope.workspace.workflow.length);
+        }
+    );
     //$scope.upgradeIdeas = function(idea){
     //    Idea.reorder({'workspaceId': $routeParams.workspaceId}, postData={'action':'upgrade', 'data': idea})
     //}
@@ -56,12 +54,12 @@ function WorkspaceViewCtrl($scope, $routeParams, Workspace, Workflow, Idea){
     //$scope.changeIdeaOrderAndWorkflow = function(idea, workflow, order){
     //    $scope.ideas = Idea.update({'workspaceId': $routeParams.workspaceId}, postData={'action':'update', 'idea': idea, 'workflow': workflow, 'order': order})
     //}
-    //$scope.stopDragAndDrop = function(){
-    //    $scope.draginprogress = false;
-    //};
-    //$scope.startDragAndDrop = function(){
-    //    $scope.draginprogress = true;
-    //};
-    //$scope.orderProp = "order";
-    //$scope.draginprogress = false;
+    $scope.stopDragAndDrop = function(){
+        $scope.draginprogress = false;
+    };
+    $scope.startDragAndDrop = function(){
+        $scope.draginprogress = true;
+    };
+    $scope.orderProp = "order";
+    $scope.draginprogress = false;
 }
