@@ -2,7 +2,7 @@ angular.module('KanbanServices', ['ngResource']).
     factory('Workspace', function($resource){
         return $resource(KanbanApiUrl + 'workspace/:workspaceId?format=json', {}, {
             query: {method:'GET', params:{workspaceId:''}, isArray:false},
-              get: {method:'GET', params:{workspaceId:''}, isArray:true}
+              get: {method:'GET', params:{workspaceId:''}, isArray:false}
         });
 }).
     factory('Workflow', function($resource){
@@ -11,11 +11,16 @@ angular.module('KanbanServices', ['ngResource']).
               get: {method:'GET', params:{workflowId:''}, isArray:true}
         });
 }).
-    factory('User', function($resource){
-        return $resource(KanbanApiUrl + 'user/?format=json', {}, {
+    factory('Auth', function($resource){
+        return $resource(KanbanUrls['user_login'], {}, {
             query: {method:'GET', isArray:true},
             login: {method:'POST', isArray:true},
             logout: {method:'POST', isArray:true}
+        });
+}).
+    factory('User', function($resource){
+        return $resource(KanbanApiUrl + 'user/?format=json', {}, {
+            query: {method:'GET', isArray:false},
         });
 }).
     factory('Idea', function($resource){

@@ -3,6 +3,7 @@
   %head
     %meta{:charset => "utf-8"}
     %title="Kanban"
+    %link{:rel => "stylesheet", :href => "{{STATIC_URL}}css/normalize.css"}
     %link{:rel => "stylesheet", :href => "{{STATIC_URL}}css/custom.css"}
     %script{:type => "text/javascript", :src => "{{STATIC_URL}}js/angular.min.js"}
     %script{:type => "text/javascript", :src => "{{STATIC_URL}}js/angular-resources.min.js"}
@@ -22,11 +23,12 @@
       %form{:ng-submit => "login()", :ng-hide => "user.username"}
         %ul
           %li
-            %input.large-11.inline{:type => "text", :ng-model => "username", :placeholder => "Username", :ng-style => "errorStyle"}
-            {{error}}
+            %input.large-11.inline{:type => "text", :ng-model => "username", :placeholder => "Username", :ng-class => "{error: error}"}
           %li
-            %input.large-11.inline{:type => "password", :ng-model => "password", :ng-style => "errorStyle"}
-            %input{:type => "submit", :style => "visibility:hidden;"}
+            %input.large-11.inline{:type => "password", :ng-model => "password", :ng-class => "{error: error}"}
+            %input{:type => "submit"}
+          %li{:ng-show => "error"}
+            {& error &}
       %ul{:ng-show => "user.username"}
         %li
           %a{:ng-click => "logout()"}

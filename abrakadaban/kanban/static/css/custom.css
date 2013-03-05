@@ -2,6 +2,14 @@
     user-select: none;
 }
 
+input.error{
+    border-color: red;
+    color:red;
+}
+input[type="submit"]{
+    visibility: hidden;
+}
+
 .moveDest{
     height:1.25em;
     margin-top:-1.25em;

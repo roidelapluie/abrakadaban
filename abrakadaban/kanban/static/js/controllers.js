@@ -1,41 +1,42 @@
 function WorkspaceListCtrl($scope, Workspace){
     workspaces = Workspace.query({},
         function(){
-            console.log(workspaces);
             $scope.workspaces = workspaces['objects'];
         }
         );
 }
 
-function UserCtrl($scope, $location, User){
-    //user = User.query(
-    //    function(){
-    //        $scope.user = user['objects'][0];
-    //    }
-    //);
-    //$scope.username = "";
-    //$scope.login = function(){
-    //    user = User.login(postData={'action':'login', 'password': $scope.password,'username': $scope.username},
-    //        function(){
-    //            $scope.user = user[0];
-    //            $scope.password = "";
-    //            $scope.errorStyle = {};
-    //            $location.path("/");
-    //        },
-    //        function(){
-    //            $scope.password = "";
-    //            $scope.errorStyle = {border:'1px solid red', color: 'red'};
-    //        }
-    //    );
-    //};
-    //$scope.logout = function(){
-    //    user = User.logout(postData={'action':'logout'},
-    //        function(){
-    //            $scope.user = null;
-    //            $location.path("/");
-    //        }
-    //    );
-    //};
+function UserCtrl($scope, $location, User, Auth){
+    user = User.query(
+        function(){
+            $scope.user = user['objects'][0];
+        }
+    );
+    $scope.username = "";
+    $scope.login = function(){
+        user = Auth.login(postData={'action':'login', 'password': $scope.password,'username': $scope.username},
+            function(){
+                newuser = User.query(function(){
+                    $scope.user = newuser['objects'][0];
+                })
+                $scope.password = "";
+                $scope.error = "";
+                $location.path("/");
+            },
+            function(data){
+                $scope.error = data['data']['error'];
+                $scope.password = "";
+            }
+        );
+    };
+    $scope.logout = function(){
+        user = Auth.logout(postData={'action':'logout'},
+            function(){
+                $scope.user = null;
+                $location.path("/");
+            }
+        );
+    };
 }
 
 function WorkspaceViewCtrl($scope, $routeParams, Workspace, Workflow, Idea){
