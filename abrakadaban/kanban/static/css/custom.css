@@ -6,8 +6,34 @@ input.error{
     border-color: red;
     color:red;
 }
+
 input[type="submit"]{
     visibility: hidden;
+}
+
+.workflows{
+    text-align:center;
+}
+
+.workflow{
+    display: inline-block;
+    vertical-align: top;
+    padding: 1em;
+}
+
+.workflow .title{
+    font-size: 2em;
+    margin: 0.4em;
+    display:block;
+    border-bottom: 0.2em solid grey;
+}
+
+.workflow .idea{
+    width: 25em;
+    border: 1px rgb(200,200,200) solid;
+    background: rgb(240,240,240);
+    margin-bottom: 1.5em;
+    padding: 1em;
 }
 
 .moveDest{
