@@ -5,14 +5,14 @@ directive('draggableIdea', function(){
         link: function($scope, elem) {
             elem.bind('dragend', function(e){
                 e.stopPropagation();
-                $scope.stopDragAndDrop();
-                $scope.$apply()
+                //$scope.stopDragAndDrop();
+                //$scope.$apply()
             });
             elem.bind('dragstart', function(e){
                 e.dataTransfer.effectAllowed = 'move';
                 e.dataTransfer.setData('text', $scope.idea.id);
-                $scope.startDragAndDrop();
-                $scope.$apply()
+                //$scope.startDragAndDrop();
+                //$scope.$apply()
             });
         }
     };
@@ -30,9 +30,19 @@ directive('draggableDest', function(){
                 }
                 var idea = e.dataTransfer.getData('text');
                 this.classList.remove('activeDrag');
-                $scope.changeIdeaOrderAndWorkflow(idea, attr.dragWorkflow, attr.dragOrder)
-                $scope.stopDragAndDrop();
+                for (var i=0; i<$scope.workspace.idea.length; i++){
+                    console.log(i);
+                    if ($scope.workspace.idea[i]['id'] == idea){
+                        $scope.workspace.idea[i]['order'] = attr.dragOrder;
+                        console.log($scope.workspace.idea[i]['workflow']);
+                        $scope.workspace.idea[i]['workflow'] = JSON.parse(attr.dragWorkflow);
+                        console.log();
+                    }
+                }
                 $scope.$apply();
+                //$scope.changeIdeaOrderAndWorkflow(idea, attr.dragWorkflow, attr.dragOrder)
+                //$scope.stopDragAndDrop();
+                //$scope.$apply();
                 return false;
             });
             elem.bind('dragover', function(e){

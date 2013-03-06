@@ -17,7 +17,7 @@ angular.module('KanbanFilters', []).
             angular.forEach(items, function(item){
                 if(item.order != i){
                 item.order = i;
-                Idea.reorder({'workspaceId': item.workspace}, postData={action:'reorder','idea':item.id, 'order':item.order});
+                Idea.update({'ideaId': item.id}, postData=item);
                 }
                 i+=2;
                 CorresponingIdea.push(item);

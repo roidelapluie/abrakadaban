@@ -13,6 +13,10 @@ class WorkspaceAuthorization(Authorization):
     def read_list(self, object_list, bundle):
         return object_list.filter(members__username=bundle.request.user.username)
 
+class IdeaAuthorization(Authorization):
+    def read_detail(self, object_list, bundle):
+        return True
+
 class UserResource(ModelResource):
     class Meta:
         queryset = User.objects.all()
@@ -41,6 +45,7 @@ class IdeaResource(ModelResource):
     members = fields.ToManyField(UserResource, 'members', full=True)
     class Meta:
         queryset = Idea.objects.all()
+        authorization = IdeaAuthorization()
 
 class CommentResource(ModelResource):
     idea = fields.ToOneField(IdeaResource, 'idea', full=True)

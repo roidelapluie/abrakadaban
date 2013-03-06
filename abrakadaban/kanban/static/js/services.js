@@ -24,11 +24,11 @@ angular.module('KanbanServices', ['ngResource']).
         });
 }).
     factory('Idea', function($resource){
-        return $resource(KanbanApiUrl + 'idea/:ideaId?format=json', {}, {
+        return $resource(KanbanApiUrl + 'idea/:ideaId/?format=json', {}, {
             query: {method:'GET', params:{ideaId:''}, isArray:true},
-            update: {method:'POST', params:{ideaId:''}, isArray:true},
-            upgrade: {method:'POST', params:{ideaId:''}, isArray:true},
-            reorder: {method:'POST', params:{ideaId:''}, isArray:true},
+            update: {method:'POST', params:{ideaId:''}, isArray:true, headers:{'Content-Type': 'application/json'}},
+            upgrade: {method:'POST', params:{ideaId:''}, isArray:true, headers:{'Content-Type': 'application/json'}},
+            reorder: {method:'POST', isArray:true, headers:{'Content-Type': 'application/json'}},
         });
 });
 

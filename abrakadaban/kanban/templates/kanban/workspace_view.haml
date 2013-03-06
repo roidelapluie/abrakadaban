@@ -5,13 +5,15 @@
     %h2
       {& workspace.title &}
     .workflows
-      .workflow{:draggable-dest => "", :drag-order => "0", :drag-workflow => "{& workflow.id &}", :class => "large-{& workspaceWidth &} columns", :ng-repeat => "workflow in workspace.workflow|orderBy:orderProp"}
+      .workflow{:draggable-dest => "", :drag-order => "0", :drag-workflow => "{& workflow &}", :class => "large-{& workspaceWidth &} columns", :ng-repeat => "workflow in workspace.workflow|orderBy:orderProp"}
         .title
           {& workflow.title &}
-        .idea{:ng-repeat => "idea in workspace.idea|workflow:workflow.id|orderBy:orderProp|hardenOrder"}
-          .panel{:draggable => "true", :draggable-idea => "", :draggable-dest => "", :drag-order => "{& idea.order+1 &}", :drag-workflow => "{& workflow.id &}"}
+        .idea{:draggable-dest => "", :drag-order => "{& idea.order+1 &}", :drag-workflow => "{& workflow &}", :draggable-idea => "", :draggable => "true", :ng-repeat => "idea in workspace.idea|workflow:workflow.id|orderBy:orderProp|hardenOrder", :ng-click => "edit=!edit"}
+          .panel
             {& idea.title &}
-            %a.button.tiny{:ng-click => "edit=!edit"}
+            %a.button.tiny
+              Move
+            %a.button.tiny
               Toggle edit
             .edit{:ng-show => "edit"}
               %input{:ng-model => "idea.title"}
