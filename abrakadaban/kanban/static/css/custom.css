@@ -2,6 +2,7 @@
     user-select: none;
 }*/
 
+
 input.error{
     border-color: red;
     color:red;
@@ -11,7 +12,7 @@ input[type="submit"]{
     visibility: hidden;
 }
 
-.workflows{
+.workflows, .workflows form{
     text-align:center;
 }
 
@@ -27,6 +28,16 @@ input[type="submit"]{
     display:block;
     border-bottom: 0.2em solid grey;
     width: 12.5em;
+}
+
+.workflow .idea.over, .workflow .title.over{
+    margin-bottom: : 5em;
+}
+
+.add{
+    border: 1px solid rgb(180,180,180);
+    background-color: rgb(220,220,220);
+    font-size: 0.8em;
 }
 
 .workflow .idea{

@@ -38,9 +38,6 @@ directive('draggableDest', function(Idea){
                         Idea.update({'ideaId': $scope.workspace.idea[i]['id']}, postData=$scope.workspace.idea[i]);
                     }
                 }
-                //$scope.changeIdeaOrderAndWorkflow(idea, attr.dragWorkflow, attr.dragOrder)
-                //$scope.stopDragAndDrop();
-                //$scope.$apply();
                 return false;
             });
             elem.bind('dragover', function(e){
@@ -49,12 +46,6 @@ directive('draggableDest', function(Idea){
                 }
                 e.dataTransfer.dropEffect = 'move';
                 return false;
-            });
-            elem.bind('dragenter', function(e){
-                this.classList.add('activeDrag');
-            });
-            elem.bind('dragleave', function(e){
-                this.classList.remove('activeDrag');
             });
         }
     };

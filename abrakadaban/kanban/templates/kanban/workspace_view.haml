@@ -8,11 +8,15 @@
       .workflow{:class => "large-{& workspaceWidth &} columns", :ng-repeat => "workflow in workspace.workflow|orderBy:orderProp"}
         .title{:draggable-dest => "", :drag-order => "0", :drag-workflow => "{& workflow &}"}
           {& workflow.title &}
+          %a.add{:ng-click => "newidea=!newidea"}
+            +
+        .idea.new{:draggable-dest => "", :drag-order => "0", :drag-workflow => "{& workflow &}", :ng-show => "newidea"}
+          .panel
+            %input{:ng-model => "newidea_title"}
         .idea{:draggable-dest => "", :drag-order => "{& idea.order+1 &}", :drag-workflow => "{& workflow &}", :draggable-idea => "", :draggable => "{& !edit &}", :ng-repeat => "idea in workspace.idea|workflow:workflow.id|orderBy:orderProp|hardenOrder"}
           .panel
             .show{:ng-hide => "edit",:ng-click => "edit=!edit"}
-              {& idea.title &}
-            .edit{:ng-show => "edit"}
+                {& idea.title &}
+            %form{:ng-submit => "edit=!edit;updateIdea(idea);", :ng-show => "edit"}
               %input{:ng-model => "idea.title"}
-              %a.button.tiny{:ng-click => "edit=!edit;updateIdea(idea);"}
-                Update
+              %input{:type => "submit", :ng-show => "false"}
