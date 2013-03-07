@@ -16,6 +16,8 @@ class WorkspaceAuthorization(Authorization):
 class IdeaAuthorization(Authorization):
     def read_detail(self, object_list, bundle):
         return True
+    def update_detail(self, object_list, bundle):
+        return True
 
 class UserResource(ModelResource):
     class Meta:
@@ -28,6 +30,7 @@ class UserResource(ModelResource):
 class WorkflowResource(ModelResource):
     class Meta:
         queryset = Workflow.objects.all()
+        authorization= Authorization()
 
 class WorkspaceResource(ModelResource):
     workflow = fields.ToManyField(WorkflowResource, 'workflow', full=True)
@@ -45,10 +48,13 @@ class IdeaResource(ModelResource):
     members = fields.ToManyField(UserResource, 'members', full=True)
     class Meta:
         queryset = Idea.objects.all()
-        authorization = IdeaAuthorization()
+        #authentication = SessionAuthentication()
+        authorization= IdeaAuthorization()
+
 
 class CommentResource(ModelResource):
     idea = fields.ToOneField(IdeaResource, 'idea', full=True)
     user = fields.ToOneField(UserResource, 'user', full=True)
     class Meta:
         queryset = Comment.objects.all()
+        authorization= Authorization()

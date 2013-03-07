@@ -17,7 +17,7 @@ directive('draggableIdea', function(){
         }
     };
 }).
-directive('draggableDest', function(){ 
+directive('draggableDest', function(Idea){ 
     return {
         restrict: 'A', //attribute only
         link: function($scope, elem, attr) {
@@ -31,15 +31,13 @@ directive('draggableDest', function(){
                 var idea = e.dataTransfer.getData('text');
                 this.classList.remove('activeDrag');
                 for (var i=0; i<$scope.workspace.idea.length; i++){
-                    console.log(i);
                     if ($scope.workspace.idea[i]['id'] == idea){
-                        $scope.workspace.idea[i]['order'] = attr.dragOrder;
-                        console.log($scope.workspace.idea[i]['workflow']);
+                        $scope.workspace.idea[i]['order'] = parseInt(attr.dragOrder);
                         $scope.workspace.idea[i]['workflow'] = JSON.parse(attr.dragWorkflow);
-                        console.log();
+                        $scope.$apply();
+                        Idea.update({'ideaId': $scope.workspace.idea[i]['id']}, postData=$scope.workspace.idea[i]);
                     }
                 }
-                $scope.$apply();
                 //$scope.changeIdeaOrderAndWorkflow(idea, attr.dragWorkflow, attr.dragOrder)
                 //$scope.stopDragAndDrop();
                 //$scope.$apply();
