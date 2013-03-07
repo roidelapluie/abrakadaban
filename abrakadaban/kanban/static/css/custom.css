@@ -1,6 +1,6 @@
-[draggable] {
+/*[draggable] {
     user-select: none;
-}
+}*/
 
 input.error{
     border-color: red;

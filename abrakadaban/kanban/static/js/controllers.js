@@ -46,9 +46,9 @@ function WorkspaceViewCtrl($scope, $routeParams, Workspace, Workflow, Idea){
             $scope.workspaceWidth = Math.floor(12/$scope.workspace.workflow.length);
         }
     );
-    //$scope.upgradeIdeas = function(idea){
-    //    Idea.reorder({'workspaceId': $routeParams.workspaceId}, postData={'action':'upgrade', 'data': idea})
-    //}
+    $scope.updateIdea = function(idea){
+        Idea.update({'ideaId': idea.id}, postData=idea)
+    }
     //$scope.changeIdeaOrder = function(idea, order){
     //    Idea.reorder({'workspaceId': $routeParams.workspaceId}, postData={'action':'reorder', 'idea': idea, 'order': order})
     //}
@@ -56,4 +56,5 @@ function WorkspaceViewCtrl($scope, $routeParams, Workspace, Workflow, Idea){
     //    $scope.ideas = Idea.update({'workspaceId': $routeParams.workspaceId}, postData={'action':'update', 'idea': idea, 'workflow': workflow, 'order': order})
     //}
     $scope.orderProp = "order";
+    $scope.dragguable = true;
 }
