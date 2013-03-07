@@ -52,6 +52,7 @@ class IdeaResource(ModelResource):
         authorization= IdeaAuthorization()
 
 
+
 class CommentResource(ModelResource):
     idea = fields.ToOneField(IdeaResource, 'idea', full=True)
     user = fields.ToOneField(UserResource, 'user', full=True)
