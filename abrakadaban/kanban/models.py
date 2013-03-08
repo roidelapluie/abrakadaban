@@ -43,6 +43,7 @@ class Workspace(models.Model):
 class Workflow(models.Model):
     order = models.IntegerField(_("Order"))
     title = models.CharField(_("Title"), max_length=16)
+    shown = models.BooleanField(_("Shown"), default=True, blank=True)
 
     def get_title(self):
         return self.title
