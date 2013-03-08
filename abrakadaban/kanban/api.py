@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from tastypie.authentication import SessionAuthentication
 from tastypie import fields
 from tastypie.authorization import Authorization
+import datetime
 
 class UserAuthorization(Authorization):
     def read_list(self, object_list, bundle):
@@ -48,8 +49,12 @@ class IdeaResource(ModelResource):
     members = fields.ToManyField(UserResource, 'members', full=True)
     class Meta:
         queryset = Idea.objects.all()
-        #authentication = SessionAuthentication()
+        authentication = SessionAuthentication()
         authorization= IdeaAuthorization()
+    def obj_create(self, bundle, request=None, **kwargs):
+        bundle.data['creation_date'] = datetime.datetime.now()
+        print kwargs
+        return super(IdeaResource, self).obj_create(bundle, **kwargs)
 
 
 
