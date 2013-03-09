@@ -68,8 +68,6 @@ class IdeaResource(ModelResource):
         bundle.obj.save()
         return bundle
 
-
-
 class CommentResource(ModelResource):
     idea = fields.ToOneField(IdeaResource, 'idea', full=True)
     user = fields.ToOneField(UserResource, 'user', full=True)
