@@ -54,29 +54,29 @@ class WorkspaceResource(ModelResource):
 
 class IdeaResource(ModelResource):
     user = fields.ForeignKey(UserResource, 'user', full=True)
-    subscribers = fields.ToManyField(UserResource, 'subscribers', full=True)
+    subscribers = fields.ToManyField(UserResource, 'subscribers', full=True, null=True)
     workspace = fields.ToOneField(WorkspaceResource, 'workspace')
     workflow = fields.ToOneField(WorkflowResource, 'workflow', full=True)
-    members = fields.ToManyField(UserResource, 'members', full=True)
+    members = fields.ToManyField(UserResource, 'members', full=True, null=True)
 
     class Meta:
         queryset = Idea.objects.all()
         authorization = IdeaAuthorization()
+        always_return_data = True
 
-    def obj_create(self, bundle, request=None, **kwargs):
+    def obj_create(self, bundle, **kwargs):
         json = simplejson.loads(bundle.request.body)
         if 'workspace' in json:
-            kwargs['workspace'] = Workspace.objects.get(id=json['workspace'])
+            kwargs['workspace'] = Workspace.objects.get(id=json['workspace']['id'])
         if 'workflow' in json:
-            kwargs['workflow'] = Workflow.objects.get(id=json['workflow'])
+            kwargs['workflow'] = Workflow.objects.get(id=json['workflow']['id'])
         if 'title' in json:
             kwargs['title'] = json['title']
         kwargs['creation_date'] = datetime.datetime.now()
         kwargs['user'] = User.objects.get(id=int(bundle.request.user.id))
         kwargs['order'] = 0
-        bundle.obj = Idea(**kwargs)
-        bundle.obj.save()
-        return bundle
+
+        return super(IdeaResource, self).obj_create(bundle, **kwargs)
 
 
 class CommentResource(ModelResource):

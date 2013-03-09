@@ -27,7 +27,7 @@ angular.module('KanbanServices', ['ngResource']).
         return $resource(KanbanApiUrl + 'idea/:ideaId/?format=json', {}, {
             query: {method:'GET', params:{ideaId:''}, isArray:true},
             update: {method:'PUT', params:{ideaId:''}, isArray:true},
-            create: {method:'POST', isArray:true},
+            create: {method:'POST', isArray:false},
         });
 });
 

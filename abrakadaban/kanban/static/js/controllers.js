@@ -49,8 +49,13 @@ function WorkspaceViewCtrl($scope, $routeParams, Workspace, Workflow, Idea){
     $scope.updateIdea = function(idea){
         Idea.update({'ideaId': idea.id}, postData=idea)
     }
-    $scope.createnewidea = function(ideatitle, workflow_id, workspace_id){
-        Idea.create(postData={title: ideatitle, workflow: workflow_id, workspace: workspace_id});
+    $scope.createnewidea = function(ideatitle, workflow, workspace){
+        newidea = Idea.create(postData={title: ideatitle, workflow: workflow, workspace: workspace},
+                function(){
+                    $scope.workspace.idea.push(newidea);
+                    $scope.newidea = "";
+                }
+                );
     }
     $scope.orderProp = "order";
     $scope.dragguable = true;
