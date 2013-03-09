@@ -12,7 +12,7 @@
             +
         .idea.new{:draggable-dest => "", :drag-order => "0", :drag-workflow => "{& workflow &}", :ng-show => "newidea"}
           .panel
-            %form{:ng-submit => "createnewidea(newidea_title);"}
+            %form{:ng-submit => "createnewidea(newidea_title, workflow.id, workspace.id);"}
                 %input{:ng-model => "newidea_title"}
                 %input{:type => "submit", :ng-show => "false"}
         .idea{:draggable-dest => "", :drag-order => "{& idea.order+1 &}", :drag-workflow => "{& workflow &}", :draggable-idea => "", :draggable => "{& !edit &}", :ng-repeat => "idea in workspace.idea|workflow:workflow.id|orderBy:orderProp|hardenOrder"}

@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from tastypie.authentication import SessionAuthentication
 from tastypie import fields
 from tastypie.authorization import Authorization
+from django.utils import simplejson
 import datetime
 
 class UserAuthorization(Authorization):
@@ -47,14 +48,25 @@ class IdeaResource(ModelResource):
     workspace = fields.ToOneField(WorkspaceResource, 'workspace')
     workflow = fields.ToOneField(WorkflowResource, 'workflow', full=True)
     members = fields.ToManyField(UserResource, 'members', full=True)
+
     class Meta:
         queryset = Idea.objects.all()
-        authentication = SessionAuthentication()
         authorization= IdeaAuthorization()
+
     def obj_create(self, bundle, request=None, **kwargs):
-        bundle.data['creation_date'] = datetime.datetime.now()
-        print kwargs
-        return super(IdeaResource, self).obj_create(bundle, **kwargs)
+        json = simplejson.loads(bundle.request.body)
+        if json.has_key('workspace'):
+            kwargs['workspace'] = Workspace.objects.get(id=json['workspace'])
+        if json.has_key('workflow'):
+            kwargs['workflow'] = Workflow.objects.get(id=json['workflow'])
+        if json.has_key('title'):
+            kwargs['title'] = json['title']
+        kwargs['creation_date'] = datetime.datetime.now()
+        kwargs['user'] = User.objects.get(id=int(bundle.request.user.id))
+        kwargs['order'] = 0
+        bundle.obj = Idea(**kwargs)
+        bundle.obj.save()
+        return bundle
 
 
 

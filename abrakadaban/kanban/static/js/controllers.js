@@ -55,8 +55,8 @@ function WorkspaceViewCtrl($scope, $routeParams, Workspace, Workflow, Idea){
     //$scope.changeIdeaOrderAndWorkflow = function(idea, workflow, order){
     //    $scope.ideas = Idea.update({'workspaceId': $routeParams.workspaceId}, postData={'action':'update', 'idea': idea, 'workflow': workflow, 'order': order})
     //}
-    $scope.createnewidea = function(ideatitle){
-        Idea.create(postData={title: ideatitle});
+    $scope.createnewidea = function(ideatitle, workflow_id, workspace_id){
+        Idea.create(postData={title: ideatitle, workflow: workflow_id, workspace: workspace_id});
     }
     $scope.orderProp = "order";
     $scope.dragguable = true;
