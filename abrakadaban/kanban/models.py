@@ -7,8 +7,10 @@ class Idea(models.Model):
     title = models.CharField(_("Title"), max_length=64)
     text = models.TextField(_("Text"), blank=True)
     workspace = models.ForeignKey("Workspace")
-    subscribers = models.ManyToManyField(User, blank=True, null=True, related_name='subscribers')
-    members = models.ManyToManyField(User, blank=True, null=True, related_name='members')
+    subscribers = models.ManyToManyField(
+        User, blank=True, null=True, related_name='subscribers')
+    members = models.ManyToManyField(
+        User, blank=True, null=True, related_name='members')
     user = models.ForeignKey(User, null=True)
     creation_date = models.DateTimeField(_("Creation date"))
     order = models.IntegerField(_("Order"))
