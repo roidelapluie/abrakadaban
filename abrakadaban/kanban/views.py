@@ -3,8 +3,10 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate, login, logout
 from django.utils import simplejson
 
+
 def return_json(data, status=None):
     return HttpResponse(simplejson.dumps(data), content_type="application/json", status=status)
+
 
 @csrf_exempt
 def user_login(request):
@@ -28,4 +30,3 @@ def user_login(request):
         else:
             logout(request)
             return return_json({})
-
