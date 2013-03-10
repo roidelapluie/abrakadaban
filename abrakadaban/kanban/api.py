@@ -7,7 +7,6 @@ from tastypie.authorization import Authorization
 from django.utils import simplejson
 import datetime
 
-
 class UserAuthorization(Authorization):
     def read_list(self, object_list, bundle):
         return object_list.filter(username=bundle.request.user.username)
@@ -76,7 +75,10 @@ class IdeaResource(ModelResource):
         kwargs['user'] = User.objects.get(id=int(bundle.request.user.id))
         kwargs['order'] = 0
 
-        return super(IdeaResource, self).obj_create(bundle, **kwargs)
+        idea = Idea(**kwargs)
+        idea.save()
+        bundle.obj = idea
+        return bundle
 
 
 class CommentResource(ModelResource):
