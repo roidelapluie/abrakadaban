@@ -5,7 +5,7 @@
     %h2
       {& workspace.title &}
     .workflows
-      .workflow{:class => "large-{& workspaceWidth &} columns", :ng-repeat => "workflow in workspace.workflow|orderBy:orderProp"}
+      .workflow{:class => "large-{& workspaceWidth &} columns", :ng-repeat => "workflow in workspace.workflow|workspaceShown:true|orderBy:orderProp"}
         .title{:draggable-dest => "", :drag-order => "0", :drag-workflow => "{& workflow &}"}
           {& workflow.title &}
           %a.add{:ng-click => "newidea=!newidea"}
@@ -15,7 +15,7 @@
             %form{:ng-submit => "createnewidea(newidea_title, workflow, workspace);"}
                 %input{:ng-model => "newidea_title"}
                 %input{:type => "submit", :ng-show => "false"}
-        .idea{:draggable-dest => "", :drag-order => "{& idea.order+1 &}", :drag-workflow => "{& workflow &}", :draggable-idea => "", :draggable => "{& !edit &}", :ng-repeat => "idea in workspace.idea|workflow:workflow.id|orderBy:orderProp|hardenOrder"}
+        .idea{:draggable-dest => "", :drag-order => "{& idea.order+1 &}", :drag-workflow => "{& workflow &}", :draggable-idea => "", :draggable => "{& !edit &}", :ng-repeat => "idea in workspace.idea|orderBy:orderProp|workflow:workflow.id"}
           .panel
             .show{:ng-hide => "edit",:ng-click => "edit=!edit"}
                 {& idea.title &}

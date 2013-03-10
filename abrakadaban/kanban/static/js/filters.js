@@ -1,28 +1,30 @@
 angular.module('KanbanFilters', []).
-    filter('workflow', function(){
+    filter('workflow', function(Idea){
         return function(items, workflow_id){
             var CorresponingIdea=[];
+            var i = 2;
             angular.forEach(items, function(item){
                 if (item.workflow.id == workflow_id){
+                    if(item.order != i){
+                        item.order = i;
+                        Idea.update({'ideaId': item.id}, postData=item);
+                    }
+                    i+=2;
                     CorresponingIdea.push(item);
                 }
             });
             return CorresponingIdea;
         }
 }).
-    filter('hardenOrder', function(Idea){
-        return function(items){
-            var CorresponingIdea=[];
-            var i=2;
-            angular.forEach(items, function(item){
-                if(item.order != i){
-                    item.order = i;
-                    Idea.update({'ideaId': item.id}, postData=item);
+    filter('workspaceShown', function(){
+        return function(workspaces, shown){
+            var CorresponingWorkspace=[];
+            angular.forEach(workspaces, function(workspace){
+                if(workspace.shown == shown){
+                    CorresponingWorkspace.push(workspace);
                 }
-                i+=2;
-                CorresponingIdea.push(item);
             });
-            return CorresponingIdea;
+            return CorresponingWorkspace;
         }
 });
 
