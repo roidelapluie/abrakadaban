@@ -22,3 +22,7 @@
             %form{:ng-submit => "edit=!edit;updateIdea(idea);", :ng-show => "edit"}
               %input{:ng-model => "idea.title"}
               %input{:type => "submit", :ng-show => "false"}
+    .workflows
+      .workflow{:class => "large-{& workspaceWidth &} columns", :ng-repeat => "workflow in workspace.workflow|workspaceShown:false|orderBy:orderProp"}
+        .title{:draggable-dest => "", :drag-order => "9999", :drag-workflow => "{& workflow &}"}
+          {& workflow.title &} ({& (workspace.idea|workflow:workflow.id).length &})
